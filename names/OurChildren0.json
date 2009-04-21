@@ -1,0 +1,33 @@
+
+({
+    "children": [
+        {
+            "name": "杨小丸",
+            "age": 7,
+        },
+        {
+            "name": "车小强",
+        },
+        {
+            "name": "代鹏",
+            "gender": "male",
+            "age": 13,
+            "city": "十方",
+            "school": "龙居小学"
+        },
+	{
+	    "name": "刘俊",
+	    "gender": "male",
+	    "age": 16,
+	    "city": "都江堰",
+	    "school": "聚源中学"
+	},
+	{
+	    "name": "李龙倩",
+	    "gender": "female",
+	    "age": 12,
+	    "city": "什仿",
+	    "school": "洛城小学"
+	},
+    ]
+})

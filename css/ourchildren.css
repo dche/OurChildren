@@ -1,0 +1,60 @@
+
+body {
+    background-color: black;
+    background-image: url(../img/sky.png);
+    background-repeat: repeat-x;
+    background-position: top left;
+    color: #ddd;
+    padding: 0;
+    font-family: sans-serif;
+    margin: 0 6px;
+}
+
+#body {
+    width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#stars {
+    height: 550px;
+    position: relative;
+}
+
+#say {
+    font-size: 20pt;
+    font-weight: bold;
+    text-align: center;
+}
+
+#findaddcorrect {
+    background-image: url(../img/border_bottom.png);
+    background-repeat: no-repeat;
+    background-position: top center;
+    margin-top: 9px;
+    padding-top: 59px;
+    color: #555;
+}
+
+.child {
+    font-size: 16pt;
+    font-weight: bold;
+    color: white;
+    position: absolute;
+    bottom: 0px;
+    opacity: 0.0;
+}
+
+.name {
+    font-size: 60pt;
+}
+
+.age {
+    padding-left: 16px;
+    vertical-align: text-bottom;
+}
+
+.info {
+    margin-top: 6px;
+    border-top: white solid 1px;
+}
