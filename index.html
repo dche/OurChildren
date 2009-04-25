@@ -23,6 +23,17 @@
     <script type='text/javascript'>
         $(document).ready(function() {
             OurChildren.initCanvas();
+            $("#findName").keydown(function() {
+                OurChildren.findChildren($(this).val());
+            }).focus(function() {
+                $(this).val("");
+                $(this).css("color", "black");
+            }).blur(function() {
+                if ($(this).val() == "") {
+                    $(this).val("孩子的名字");
+                    $(this).css("color", "#aaa");
+                }
+            })
         });
     </script>
 </head>
@@ -33,11 +44,23 @@
             <canvas width="700" height="100" id="sky" style="position:absolute; top:0px"></canvas>
         </div>
         <div id="say">我们的孩子，他们活过，他们笑过，他们是纯洁的</div>
-        <div id="findaddcorrect">
-            <div id="find">寻找亲人
+        <div id="light"></div>
+        <div id="add">
+            <div id="howtoadd" style="margin-bottom: 12p;">
+                <span id="howmanychildren"></span>孩子的信息都來自<a href="http://blog.sina.com.cn/aiweiwei/">艾未未先生的博客</a>。如果您发现哪个遇难的孩子没有在这里被纪念，请发送孩子的信息到电子邮箱: <a href='mailto:xuesheng512@gmail.com'>xuesheng512@gmail.com</a>。
             </div>
-            <div id="info">提供信息</div>
+            <div id="findcorrect">
+                <span>寻找亲人</span>
+                <input type="text" id="findName" size="8" value="孩子的名字"/>
+                <div id="theyare">
+                    <div id="container">        
+                    </div>
+                    <div class="info slide_info">
+                    </div>
+                </div>
+            </div>
         </div>
+        <img id="candle" src="img/candle_146.jpeg"/>
     </div>
 </body>
 </html>

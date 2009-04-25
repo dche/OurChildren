@@ -1,0 +1,34 @@
+({
+	"children": [ 
+	{
+	  "name": "张新阳",
+	  "gender": "female",
+	  "age": 8
+	},
+	{
+	    "name": "白宇超",
+	    "gender": "male",
+	    "age": 8
+	},
+	{
+	    "name": "葛依新",
+	    "gender": "male",
+	    "age": 8
+	},
+	{
+	    "name": "杨海涛",
+	    "gender": "male",
+	    "age": 22
+	},
+	{
+	    "name": "刘然",
+	    "gender": "male",
+	    "age": 16
+	},
+	{
+	    "name": "刘艳",
+	    "gender": "female",
+	    "age": 15
+	},
+	]
+})
