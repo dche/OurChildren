@@ -1,0 +1,6 @@
+---
+city: 北川县
+school: 北川中学
+---
+name gender age grade address parents phone
+王蓉　  女　　  19　　  高三、2　 曲山镇杨家街　王南平　   13550813496

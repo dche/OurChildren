@@ -19,7 +19,7 @@ this.OurChildren = {
     searchString: "",
     
     // Names are splitted into multiple lists to reduce display time.
-    listNumber: 2,
+    listNumber: 17,
     
     p: null,
     
@@ -52,24 +52,6 @@ this.OurChildren = {
             $(this).remove();
             OurChildren.starShines();
         });
-        $(div).hover(function() {
-            $(this).queue('fx', []);
-            $(this).stop();
-            $(this).stopTime();
-            $(this).animate({opacity: 1.0}, 200);
-            $(this).children(".info").animate({opacity: 1.0}, 2000);
-        }, function() {
-            var bottom = height + 60 - $(this).position().top - $(this).height();
-            var newSpeed = speed * (height - bottom) / height
-            $(this).oneTime(newSpeed, function() {
-                $(this).remove();
-            });
-            $(this).children(".info").animate({opacity: 0.0}, 2000);
-            $(this).animate({
-                bottom: '+='.concat(height - bottom),
-                opacity: 0.0
-            }, newSpeed);
-        });
         $(div).animate({
                 bottom:'+='.concat(height / 2),
                 opacity:1.0
@@ -90,13 +72,13 @@ this.OurChildren = {
         
         i = number;
         while (i > 2) {
-            var r = this.randomInt() + 1;
+            var r = this.randomInt(number) + 1;
             if (i != r) {
                 var o = na[i - 1];
                 na[i - 1] = na[r - 1];
                 na[r - 1] = o;
-                i--;
             }
+            i--;
         }
         return na;
     },
@@ -107,9 +89,9 @@ this.OurChildren = {
     
     lifeSpan: function(age) {
         if (typeof age != 'number' || isNaN(age) || age <= 0) {
-            return 8000;
+            return 12000;
         }
-        return 4000 + age * 200;
+        return 8000 + age * 200;
     },
     
     genderColor: function(gender) {
@@ -127,18 +109,42 @@ this.OurChildren = {
     starShines: function(pos) {
     },
     
-    buildInfo: function(child) {
-        // example info: 德阳市人，生于1990年2月15日，遇难时就读于洛城高中
-        return "德阳市人，&nbsp;生于1990年2月15日，&nbsp;遇难时就读于洛城高中";
+    genderName: function(gender) {
+        if (gender == "male") {
+            return "男";
+        } else if (gender == "female") {
+            return "女";
+        }
+        return "";
+    },
+    
+    schoolInfo: function(child) {
+         if (!child.school) return nil;
+         var div = $('<div/>').attr('class', 'info');
+         var school = $('<span/>').text(child.school);
+         $(div).append(school);
+         if (child.grade) {
+             var grade = $('<span/>').text(child.grade);
+             $(div).append(grade);
+         } 
+         if (child.class_) {
+             var class_ = $('<span/>').text(child.class_);
+             $(div).append(class_);
+         }
+         return $(div);
     },
     
     buildName: function(child) {
         var div = $('<div/>').attr('class', 'child');
         var name = $('<span/>').attr('class', 'name').text(child.name).css('color', this.genderColor(child.gender));
         var age = $('<span/>').attr('class', 'age').text(this.ageString(child.age));
-        var infoDiv = $('<div/>').attr('class', 'info').html(this.buildInfo(child));
+        $(div).append(name).append(age);
         
-        return $(div).append(name).append(age).append(infoDiv);
+        if (child.school) {
+            $(div).append(this.schoolInfo(child));
+        }
+        
+        return $(div);
     },
     
     downloadNames: function() {
@@ -150,7 +156,7 @@ this.OurChildren = {
             
             if (shouldStart) {
                 OurChildren.riseAStar();
-                $(window).everyTime(2000, "riseStars", function() {
+                $(window).everyTime(3000, "riseStars", function() {
                     OurChildren.riseAStar();
                 });
                 
@@ -186,7 +192,7 @@ this.OurChildren = {
         
         var re = new RegExp(str);
         var ia = [];
-        // update matchedNames,
+        // update matchedNames
         jQuery.each(this.children, function(idx) {
             if (re.test(this.name)) {
                 ia.push(idx);
@@ -209,7 +215,7 @@ this.OurChildren = {
             });
         }
         
-        if (ia.length > 0 && ia.length < this.maxSlideStackSize) {
+        if (ia.length > 0 && ia.length <= this.maxSlideStackSize) {
             if (this.sliding) {
                 $(window).stopTime("slideNames");
                 this.sliding = false;                
@@ -228,7 +234,6 @@ this.OurChildren = {
                     this.slideName(this.matchedNames[i]);
                 }
             }
-            console.log(this.slideStack);
             
             // compact slideStack;
             var na = [];
@@ -318,21 +323,21 @@ this.OurChildren = {
         this.sliding = true;
         
         var shown = false;
-        do {
-            shown = false;
-            if (this.matchedNames.length == 0) {
-                var i = this.randomInt(this.children.length);
-            } else {
-                var i = this.matchedNames[this.randomInt(this.matchedNames.length)];            
-            }
-            for (var idx in this.slideStack) {
-                var c = this.slideStack[idx];
-                if ($(c).data("index") == i) {
-                    shown = true;
-                    break;
-                }
-            }
-        } while (shown);
+        if (this.matchedNames.length == 0) {
+            var i = this.randomInt(this.children.length);
+        } else { 
+            do {
+                shown = false;
+                var i = this.matchedNames[this.randomInt(this.matchedNames.length)];
+                for (var idx in this.slideStack) {
+                    var c = this.slideStack[idx];
+                    if ($(c).data("index") == i) {
+                        shown = true;
+                        break;
+                    }
+                }      
+            } while (false);    
+        }
         this.slideName(i);
     }
 };

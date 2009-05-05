@@ -1,0 +1,8 @@
+---
+region: 阿坝藏族羌族自治州
+city: 理县
+school: 通化中学
+grade: 初一
+name: 贾梦琪
+gender: female
+---

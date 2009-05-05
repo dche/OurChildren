@@ -1,0 +1,10 @@
+---
+city: 汶川县
+town: 映秀镇
+school:  漩口中学
+grade: 高一
+name: 程垒
+gender: male
+parents: 程林祥 刘志珍
+phone: 15884073241
+---

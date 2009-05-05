@@ -1,4 +1,4 @@
-name      gender  age   scholl  grade parent
+name      gender  age   school  grade parent
 郭飞               18   北川中学   高一      张华
 邓胜薛      男     18   北川中学   高一一班  邓家发
 顾玉凤      女     17   北川中学   高一一班  顾三勇

@@ -60,13 +60,6 @@ a {
     padding: 2px 4px;
 }
 
-#theyare {
-    width: 360px;
-    position: absolute;
-    top: 9px;
-    right: 0px;
-}
-
 #container {
      position: relative;
 }
@@ -81,6 +74,11 @@ a {
     line-height: 150%;
 }
 
+#howtoadd {
+    font-size: 12pt;
+    padding-bottom: 2em;
+}
+
 #addInfo {
     font-size: 14pt;
     font-weight: bold;
@@ -93,6 +91,7 @@ a {
 
 #candle {
     width: 150px;
+    paaddin-top: 15px;
     padding-bottom: 60px;
     display: block;
     margin-left: auto;
@@ -119,26 +118,25 @@ a {
 }
 
 .info {
-    background-color: #333;
     color: #eee;
     -moz-border-radius-bottomleft: 5px;
     -webkit-border-bottom-left-radius: 5px;
     -moz-border-radius-bottomright: 5px;
     -webkit-border-bottom-right-radius: 5px;
-    -moz-border-radius-topright: 5px;
-    -webkit-border-top-right-radius: 5px;
     font-size: 12pt;
     margin-top: 4px;
     padding: 6px;
-    border-top: white solid 1px;
-    opacity: 0.0;
+    border-top: #333 solid 1px;
 }
 
 .slide_info {
-    margin-top: 30px;
+    margin-top: 32px;
     padding: 12px;
     border: none;
     background-color: #1c1c1c;
+    -moz-border-radius-topright: 5px;
+    -webkit-border-top-right-radius: 5px;
+    opacity: 0.0;
 }
 
 .slide_name {
