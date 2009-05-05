@@ -135,7 +135,7 @@ this.OurChildren = {
     },
     
     buildName: function(child) {
-        var div = $('<div/>').attr('class', 'child');
+        var div = $('<div/>').attr('class', 'child').css('opacity', '0.0');
         var name = $('<span/>').attr('class', 'name').text(child.name).css('color', this.genderColor(child.gender));
         var age = $('<span/>').attr('class', 'age').text(this.ageString(child.age));
         $(div).append(name).append(age);
@@ -291,7 +291,7 @@ this.OurChildren = {
     
     slideName: function(i) {
         var name = this.children[i].name;        
-        var sn = $("<div/>").attr('class', 'slide_name').text(name);
+        var sn = $("<div/>").attr('class', 'slide_name').css('opacity', '0.0').text(name);
         $("#container").append(sn);
         this.slideStack.push(sn);
         $(sn).data("name", name);
