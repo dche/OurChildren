@@ -133,8 +133,13 @@ a {
     padding: 12px;
     border: none;
     background-color: #1c1c1c;
+    font-size: 11pt;
     -moz-border-radius-topright: 5px;
     -webkit-border-top-right-radius: 5px;
+}
+
+.slide_info span {
+    margin-right: 1em;
 }
 
 .slide_name {

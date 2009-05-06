@@ -14,7 +14,7 @@ this.OurChildren = {
     matchedNames: [],
     slideStack: [], // used to keep the order of sliding names.
     maxSlideStackSize: 4,
-    sliding: false,
+    sliding: true,
     slideTime: 14500,
     searchString: "",
     
@@ -109,11 +109,13 @@ this.OurChildren = {
     starShines: function(pos) {
     },
     
-    genderName: function(gender) {
-        if (gender == "male") {
-            return "男";
-        } else if (gender == "female") {
-            return "女";
+    genderName: function(child) {
+        if (child.gender) {
+            if (child.gender == "male") {
+                return "男";
+            } else if (child.gender == "female") {
+                return "女";
+            }
         }
         return "";
     },
@@ -127,10 +129,6 @@ this.OurChildren = {
              var grade = $('<span/>').text(child.grade);
              $(div).append(grade);
          } 
-         if (child.class_) {
-             var class_ = $('<span/>').text(child.class_);
-             $(div).append(class_);
-         }
          return $(div);
     },
     
@@ -172,10 +170,59 @@ this.OurChildren = {
         }
     },
     
+    birthday: function(child) {
+        var day = "";
+        if (child.birth_year) {
+            day += child.birth_year.toString() + "年";
+            if (child.birth_month) {
+                day += child.birth_month.toString() + "月";
+                if (child.birth_day) {
+                    day += child.birth_day.toString() + "日";
+                }
+            }
+        }
+        return day;
+    },
+    
     showInfoForChild: function(c) {
         // build slide info.
-        var child = this.children[$(c).data("index")];       
-        $(".slide_info").html(child.name);
+        var child = this.children[$(c).attr("id")];
+        
+        $(".slide_info:first").empty();
+        
+        var div1 = $('<div/>');
+        if (child.gender) {
+            $(div1).append($('<span/>').html(this.genderName(child)));
+        }
+        if (child.birth_year) {
+            $(div1).append($('<span/>').html("生于" + $('<span/>').html(this.birthday(child)).html()));
+        }
+        if (child.home_address) {
+            $(div1).append($('<span/>').html("家住" + child.home_address));
+        }
+        if ($(div1).contents().length > 0) {
+            $(".slide_info:first").append(div1);
+        }
+        var div2 = $('<div/>');
+        if (child.age) {
+            var html = "遇难时年仅" + this.ageString(child.age);
+            $(div2).append($("<span/>").html(html));
+        }
+        if (child.school) {
+            if ($(div2).children().length == 0) {
+                $(div2).append($("<span/>"));
+            }
+            var html = $(div2).children("span").eq(0).html();
+            (html == "") ? (html = "遇难时") : (html += "，");
+            html += "就读于" + child.school + (child.grade || "");
+            $(div2).children("span").eq(0).html(html);
+        }
+        if ($(div2).contents().length > 0) {
+            $(".slide_info:first").append(div2);
+        }
+        if ($(".slide_info:first").contents().length == 0) {
+            $(".slide_info:first").append($("<span/>").attr("style", "color: #998800").text("请知情人提供" + child.name + "同学的更多信息"));
+        }
     },
     
     findChildren: function(str) {
@@ -189,44 +236,49 @@ this.OurChildren = {
         }
         
         this.searchString = str;
+        // reset input box color
+        $("#findName").css("background-color", "white");
         
         var re = new RegExp(str);
         var ia = [];
         // update matchedNames
-        jQuery.each(this.children, function(idx) {
-            if (re.test(this.name)) {
-                ia.push(idx);
+        for (var i in this.children) {
+            if (re.test(this.children[i].name)) {
+                ia.push(i);
             }
-        });
+        }
         this.matchedNames = ia;
         
         if (ia.length != 0) {
-            jQuery.each(this.slideStack, function(idx) {
-                if (!re.test($(this).data("name"))) {
-                    OurChildren.slideStack[idx] = null;
-                    $(this).stopTime("remove");
-                    $(this).stopTime("fadeOut");
-                    $(this).stopTime("showInfo");
-                    if ($(this).hasClass("slide_name_hover")) {
+            for (var i in this.slideStack) {
+                var jq = this.slideStack[i];
+                if (!jq) {
+                    continue;
+                }
+                if (!re.test(OurChildren.children[$(jq).attr("id")].name)) {
+                    OurChildren.slideStack[i] = null;
+                    $(jq).stopTime("remove");
+                    $(jq).stopTime("fadeOut");
+                    $(jq).stopTime("showInfo");
+                    if ($(jq).hasClass("slide_name_hover")) {
                         $(".slide_info").animate({opacity: 0.0}, "slow");
                     }
-                    $(this).remove();
+                    $(jq).remove();
                 }
-            });
+            }
+        } else if (str != ""){
+            $("#findName").css("background-color", "#696969");
         }
         
         if (ia.length > 0 && ia.length <= this.maxSlideStackSize) {
-            if (this.sliding) {
-                $(window).stopTime("slideNames");
-                this.sliding = false;                
-            }
-            
+            this.sliding = false;                
+
             // show names not in slide stack.
             var idxar = [];
             for (var c in this.slideStack) {
                 if (this.slideStack[c] == null) continue;
                 
-                var idx = $(this.slideStack[c]).data("index");
+                var idx = $(this.slideStack[c]).attr("id");
                 idxar.push(idx);
             }
             for (var i in this.matchedNames) {
@@ -276,16 +328,13 @@ this.OurChildren = {
         } else if (! this.sliding) {
             $(".slide_info").animate({opacity: 0.0}, 3000);
             for (var i in this.slideStack) {
-                $(this.slideStack[i]).fadeOut(3000).oneTime(3000, function() {
+                $(this.slideStack[i]).fadeOut(3000);
+                $(this.slideStack[i]).oneTime(3000, function() {
                     $(this).remove();
                 });
             }
             this.slideStack = [];
-            
-            OurChildren.slideNames();
-            $(window).everyTime(6000, "slideNames", function() {
-                OurChildren.slideNames();
-            });            
+            this.sliding = true;
         }
     },
     
@@ -294,8 +343,7 @@ this.OurChildren = {
         var sn = $("<div/>").attr('class', 'slide_name').css('opacity', '0.0').text(name);
         $("#container").append(sn);
         this.slideStack.push(sn);
-        $(sn).data("name", name);
-        $(sn).data("index", i);
+        $(sn).attr("id", i.toString());
         
         $(sn).animate({
             right: "+=".concat($("#container").width() - $(sn).width() - 24),
@@ -317,11 +365,10 @@ this.OurChildren = {
     },
     
     slideNames: function() {
-        if(this.children.length == 0) {
+        if(this.children.length == 0 || !this.sliding) {
             return;
         }
-        this.sliding = true;
-        
+                
         var shown = false;
         if (this.matchedNames.length == 0) {
             var i = this.randomInt(this.children.length);
@@ -331,13 +378,16 @@ this.OurChildren = {
                 var i = this.matchedNames[this.randomInt(this.matchedNames.length)];
                 for (var idx in this.slideStack) {
                     var c = this.slideStack[idx];
-                    if ($(c).data("index") == i) {
+                    if (c == null) {
+                        continue;
+                    }
+                    if ($(c).attr("id") == i) {
                         shown = true;
                         break;
                     }
                 }      
-            } while (false);    
-        }
+            } while (shown);
+        } 
         this.slideName(i);
     }
 };

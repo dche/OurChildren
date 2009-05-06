@@ -30,7 +30,7 @@ class Child
       case index
       when 0
         # name
-        self.name = v.sub(/？|\?/, "\u25a1")
+        self.name = v.gsub(/？|\?/, "\u25a1")
       when 1
         # gender
         if (v =~ /^男/)
@@ -65,6 +65,7 @@ class Child
           
           begin
             age = ((Child::THEDAY - Time.parse(tstr)) / (60 * 60 * 24 * 365)).floor
+            puts "#{tstr} => #{age}"
             self.age = age
           rescue ArgumentError
             puts "Wrong birthday: [#{v}]"
@@ -85,9 +86,10 @@ class Child
         self.school_city = v
       when 11
         # parent1
-      when 13
+      when 14
         # home_address
         self.home_address = v
+        puts "home_address: #{v}"
       when 15
         # parent2
       end
