@@ -136,6 +136,7 @@ a {
     font-size: 11pt;
     -moz-border-radius-topright: 5px;
     -webkit-border-top-right-radius: 5px;
+    filter: alpha(opacity = 0);
 }
 
 .slide_info span {

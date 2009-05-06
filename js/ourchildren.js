@@ -23,11 +23,6 @@ this.OurChildren = {
     
     p: null,
     
-    initCanvas: function() {
-        this.p = Processing("sky");
-        this.p.size(700, 100);
-    },
-    
     riseAStar: function() {
         if (this.children.length == 0) {
             return;
