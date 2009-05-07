@@ -1,2 +1,0 @@
-name gender age school class address
-蒋晓怡 男        12       洛城二小 五年级一班 德阳 什邡市 洛水镇

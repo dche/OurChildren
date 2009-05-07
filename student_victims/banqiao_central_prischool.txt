@@ -1,2 +1,0 @@
-name gender age school address
-李红     女     18      板桥中心学校 德阳绵竹市

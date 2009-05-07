@@ -1,2 +1,0 @@
-name  gender  birthday  age school class parent    address
-谢明非 男 1992-8-29 16 陈家坝中学 初二四班  谢光全 绵阳北川县陈家坝乡

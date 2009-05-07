@@ -1,2 +1,0 @@
-name age school address
-马玉欣 5 清平幼儿园  德阳 绵竹市 清平乡

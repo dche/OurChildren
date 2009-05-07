@@ -1,3 +1,0 @@
-name gender age school class parent address
-陈魏程  男   4        南坝周周幼儿园 幼儿园中班 陈波      平武
-唐雨晴  女   3        南坝周周幼儿园 幼儿园中班 唐传荣    平武

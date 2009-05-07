@@ -1,3 +1,0 @@
-name gender age school class parent address
-董丹  女  17  城南中学   初三   封明秋    德阳绵竹市
-王成  男  18  城南中学                    德阳 绵竹市 九龙镇 

@@ -1,3 +1,0 @@
-name gender age school class address
-
-肖盈  女   18 德阳通讯信息学校  07班   德阳绵竹市汉旺镇
