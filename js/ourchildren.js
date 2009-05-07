@@ -113,10 +113,9 @@ this.OurChildren = {
     starShines: function(pos) {
         var color = "hsb(" + [.16, 1, 1] + ")";
         var ver = this.randomInt(50) + 10;
-        var rot = this.randomInt(360);
         var pathStr = ["M", pos.toString(), ver.toString()].join(" ") + this.starPath;
         
-        var star = this.paper.path({stroke: "none", fill: color, opacity: 0.0}).relatively().attr("path", pathStr).andClose().rotate(rot);
+        var star = this.paper.path({stroke: "none", fill: color, opacity: 0.0}).relatively().attr("path", pathStr).andClose();
         star.animate({opacity: 0.3}, 1000, function() {
             star.animate({opacity: 1.0}, 200, function() {
                 star.animate({opacity: 0.0}, 3000, function() {
