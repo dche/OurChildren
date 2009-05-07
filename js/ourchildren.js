@@ -23,21 +23,10 @@ this.OurChildren = {
     
     // Raphael draw plane.
     paper: null,
-    // starPath: [
-    //     2.21,-0.67, 
-    //     0,-2.29, 
-    //     1.38,1.88, 
-    //     2.25,-0.82, 
-    //     -1.55,1.84,
-    //     1.38,1.88,
-    //     -2.14,-0.75,
-    //     -1.55,1.84,
-    //     0.25, -2.29
-    // ], # Do not scale for performance.
     starPath: " L 2.21 -0.67 L 0 -2.29 L 1.38 1.88 L 2.25 -0.82 L -1.55 1.84 L 1.38 1.88 L -2.14 -0.75 L -1.55 1.84 L 0.25 -2.29",
     
     initRaphael: function() {
-        this.paper = Raphael('stars', 700, 300);
+        this.paper = Raphael('stars', 700, 550);
     },
     
     riseAStar: function() {
@@ -124,9 +113,10 @@ this.OurChildren = {
     starShines: function(pos) {
         var color = "hsb(" + [.16, 1, 1] + ")";
         var ver = this.randomInt(50) + 10;
+        var rot = this.randomInt(360);
         var pathStr = ["M", pos.toString(), ver.toString()].join(" ") + this.starPath;
         
-        var star = this.paper.path({stroke: "none", fill: color, opacity: 0.0}).relatively().attr("path", pathStr).andClose();
+        var star = this.paper.path({stroke: "none", fill: color, opacity: 0.0}).relatively().attr("path", pathStr).andClose().rotate(rot);
         star.animate({opacity: 0.3}, 1000, function() {
             star.animate({opacity: 1.0}, 200, function() {
                 star.animate({opacity: 0.0}, 3000, function() {
@@ -181,7 +171,7 @@ this.OurChildren = {
             
             if (shouldStart) {
                 OurChildren.riseAStar();
-                $(window).everyTime(6000, "riseStars", function() {
+                $(window).everyTime(5000, "riseStars", function() {
                     OurChildren.riseAStar();
                 });
                 
