@@ -9,9 +9,9 @@
 	<title>“5.12”地震遇难学生纪念</title>
         
     <link type="text/css" href="css/grid.css" rel="stylesheet"/>
-    <link type="text/css" href="css/ourchildren.css" rel="stylesheet"/>
+    <link type="text/css" href="css/ourchildren.css" rel="stylesheet" media="screen"/>
     
-    <script type='text/javascript' src='js/excanvas.compiled.js'></script>
+    <script type='text/javascript' src='js/raphael.js'></script>
     <script type='text/javascript' src='js/jquery.js'></script>
     <script type='text/javascript' src='js/jquery.timers.js'></script>
     <script type='text/javascript' src='js/ourchildren.js'></script>
@@ -24,6 +24,7 @@
     -->
     <script type='text/javascript'>
         $(document).ready(function() {
+            OurChildren.initRaphael();
             $("#findName").keydown(function() {
                 OurChildren.findChildren($(this).val());
             }).focus(function() {
@@ -43,7 +44,7 @@
 <body>
     <div id="body">
         <div id="stars">
-            <canvas width="700" height="100" id="sky" style="position:absolute; top:0px"></canvas>
+            
         </div>
         <div id="say">我们的孩子，他们活过，他们笑过，他们是纯洁的</div>
         <div id="light"></div>

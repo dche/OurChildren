@@ -21,7 +21,24 @@ this.OurChildren = {
     // Names are splitted into multiple lists to reduce display time.
     listNumber: 17,
     
-    p: null,
+    // Raphael draw plane.
+    paper: null,
+    // starPath: [
+    //     2.21,-0.67, 
+    //     0,-2.29, 
+    //     1.38,1.88, 
+    //     2.25,-0.82, 
+    //     -1.55,1.84,
+    //     1.38,1.88,
+    //     -2.14,-0.75,
+    //     -1.55,1.84,
+    //     0.25, -2.29
+    // ], # Do not scale for performance.
+    starPath: " L 2.21 -0.67 L 0 -2.29 L 1.38 1.88 L 2.25 -0.82 L -1.55 1.84 L 1.38 1.88 L -2.14 -0.75 L -1.55 1.84 L 0.25 -2.29",
+    
+    initRaphael: function() {
+        this.paper = Raphael('stars', 700, 300);
+    },
     
     riseAStar: function() {
         if (this.children.length == 0) {
@@ -43,18 +60,21 @@ this.OurChildren = {
         }
         
         $('#stars').append($(div));
+        $(div).oneTime(speed - 1000, function() {
+            var starPos = (hor * 2 > width) ? (hor - $(div).width() / 2) : (hor + $(div).width() / 2);
+            OurChildren.starShines(starPos);
+        });
         $(div).oneTime(speed, function() {
             $(this).remove();
-            OurChildren.starShines();
         });
         $(div).animate({
                 bottom:'+='.concat(height / 2),
                 opacity:1.0
-            },speed / 2);
+            },speed / 2, "linear");
         $(div).animate({
                 bottom:'+='.concat(height / 2),
                 opacity:0.0
-            },speed / 2);
+            },speed / 2, "linear");
     },
     
     // return an Array of random ordered numbers, shuffled by Knuth algorithm.
@@ -100,8 +120,20 @@ this.OurChildren = {
         return age.toString() + "岁";
     },
     
-    // draw a star using Processing.js
+    // draw a star using Raphael
     starShines: function(pos) {
+        var color = "hsb(" + [.16, 1, 1] + ")";
+        var ver = this.randomInt(50) + 10;
+        var pathStr = ["M", pos.toString(), ver.toString()].join(" ") + this.starPath;
+        
+        var star = this.paper.path({stroke: "none", fill: color, opacity: 0.0}).relatively().attr("path", pathStr).andClose();
+        star.animate({opacity: 0.3}, 1000, function() {
+            star.animate({opacity: 1.0}, 200, function() {
+                star.animate({opacity: 0.0}, 3000, function() {
+                    this.remove();
+                });
+            });
+        });
     },
     
     genderName: function(child) {
@@ -149,7 +181,7 @@ this.OurChildren = {
             
             if (shouldStart) {
                 OurChildren.riseAStar();
-                $(window).everyTime(3000, "riseStars", function() {
+                $(window).everyTime(6000, "riseStars", function() {
                     OurChildren.riseAStar();
                 });
                 
