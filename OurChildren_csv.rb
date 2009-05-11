@@ -30,7 +30,13 @@ class Child
       case index
       when 0
         # name
-        self.name = v.gsub(/？|\?/, "\u25a1")
+        if (v =~ /^([^\s]+)\s*[\(（](.*)[）\)]/)
+          self.name = $1
+          puts $2
+        else
+          self.name = v
+        end
+        self.name.gsub!(/？|\?/, "\u25a1")
       when 1
         # gender
         if (v =~ /^男/)

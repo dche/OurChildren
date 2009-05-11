@@ -139,7 +139,7 @@ this.OurChildren = {
     schoolInfo: function(child) {
          if (!child.school) return nil;
          var div = $('<div/>').attr('class', 'info');
-         var school = $('<span/>').text(child.school);
+         var school = $('<span/>').text((child.school_city || "") + child.school);
          $(div).append(school);
          if (child.grade) {
              var grade = $('<span/>').text(child.grade);
@@ -230,7 +230,7 @@ this.OurChildren = {
             }
             var html = $(div2).children("span").eq(0).html();
             (html == "") ? (html = "遇难时") : (html += "，");
-            html += "就读于" + child.school + (child.grade || "");
+            html += "就读于" + (child.school_city || "") + child.school + (child.grade || "");
             $(div2).children("span").eq(0).html(html);
         }
         if ($(div2).contents().length > 0) {
