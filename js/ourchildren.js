@@ -19,7 +19,7 @@ this.OurChildren = {
     searchString: "",
     
     // Names are splitted into multiple lists to reduce display time.
-    listNumber: 17,
+    listNumber: 18,
     
     // Raphael draw plane.
     paper: null,

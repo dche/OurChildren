@@ -17,8 +17,8 @@ class Child
   THEDAY = Time.parse("2008-05-12 14:28:00")
   
   @@attr = [:name, :gender, :birth_year, :birth_month, :birth_day, :age,
-      :province, :school_city, :homt_city, :town, :school, :grade, :class_, :home_address, 
-      :parents_or_relatives, :phone, :file, :lineno
+      :province, :school_city, :home_city, :home_town, :school, :grade, :home_address, 
+      :father, :mother, :relatives, :phone, :file, :lineno
     ]
     
   @@parsers = {}
@@ -249,18 +249,11 @@ Dir.glob("victims/*.txt") do |fn|
   end
 end
 
-schools = []
-children.each do |child|
-  schools << child.school if child.school && !schools.member?(child.school)
-end
-
-pp schools
-
 # export. group 500 names into on json file.
 0.upto((children.length - 1) / 300) do |i|
   max = i * 300 + 299
   childs = children[(i * 300) .. (max >= children.length ? children.length - 1 : max)]
-  File.open("names/OurChildren#{i}.json", "w") do |f|
+  File.open("more_names/OurChildren#{i}.json", "w") do |f|
     f.puts "(" + {"children" => childs}.to_json + ")"
   end
 end
